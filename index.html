@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Annual City Partners - Servolution Network</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self' https: data:; connect-src 'self' https: ws: wss:;">
+    <style>
+        :root {
+        --neumorphic-bg: #fafafa;
+        --neumorphic-light-shadow: rgba(255, 255, 255, 0.5);
+        --neumorphic-dark-shadow: rgba(163, 177, 198, 0.6);
+        --neumorphic-text-primary: #0d4a75;
+        --neumorphic-text-secondary: #6d7f91;
+        --primary-blue: #002B7F;
+        --accent-red: #E31B23;
+    }
+
+    /* Base Neumorphic Styles */
+    body {
+        background-color: var(--neumorphic-bg);
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    /* Partner Card Neumorphic Styling */
+    .partner-card {
+        margin-bottom: 25px;
+        border: none;
+        background-color: var(--neumorphic-bg);
+        border-radius: 15px;
+        box-shadow: 
+            8px 8px 15px var(--neumorphic-dark-shadow),
+            -8px -8px 15px var(--neumorphic-light-shadow);
+        transition: transform 0.3s ease;
+        overflow: visible !important;
+    }
+
+
+    .partner-card .card {
+        background: transparent;
+        border: none !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Partner Card Layout - Two Rows */
+    .partner-card .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .partner-card .card-top-row {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .partner-card .card-bottom-row {
+        width: 100%;
+    }
+
+    /* Partner Image */
+    .partner-image-container {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .partner-image {
+        max-width: 100%;
+        max-height: 120px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: var(--neumorphic-bg);
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    /* Partner Info */
+    .partner-info {
+        padding: 15px;
+    }
+
+    .partner-name {
+        color: var(--neumorphic-text-primary);
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .partner-description {
+        color: var(--neumorphic-text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .partner-contact {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        color: var(--neumorphic-text-secondary);
+    }
+
+    .partner-contact i {
+        margin-right: 10px;
+        margin-top: 3px;
+        color: var(--neumorphic-text-primary);
+        flex-shrink: 0;
+    }
+
+    .partner-contact span {
+        word-break: break-word;
+    }
+
+    /* Tags */
+    .tag {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 4px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--neumorphic-text-primary);
+        background-color: var(--neumorphic-bg);
+        box-shadow: 
+            3px 3px 5px var(--neumorphic-dark-shadow),
+            -3px -3px 5px var(--neumorphic-light-shadow);
+        transition: all 0.3s ease;
+    }
+
+    .tag:hover {
+        box-shadow: 
+            inset 2px 2px 3px var(--neumorphic-dark-shadow),
+            inset -2px -2px 3px var(--neumorphic-light-shadow);
+        transform: translateY(1px);
+    }
+
+    /* Video Container */
+    .video-container {
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .video-link {
+        position: relative;
+        display: block;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        text-decoration: none;
+    }
+
+    .thumbnail-img {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 
+            5px 5px 10px var(--neumorphic-dark-shadow),
+            -5px -5px 10px var(--neumorphic-light-shadow);
+        transition: all 0.3s ease;
+    }
+
+    .video-link:hover .thumbnail-img {
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        max-width: 60px;
+        height: auto;
+        pointer-events: none;
+        transition: transform 0.3s ease;
+    }
+
+    .video-link:hover .play-button {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .video-title {
+        margin-top: 10px;
+        text-align: center;
+        color: var(--neumorphic-text-primary);
+        font-size: 0.9rem;
+    }
+
+    /* Social Links */
+    .social-links {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .social-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--neumorphic-text-primary);
+        background-color: var(--neumorphic-bg);
+        box-shadow: 
+            5px 5px 10px var(--neumorphic-dark-shadow),
+            -5px -5px 10px var(--neumorphic-light-shadow);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+        color: var(--accent-red);
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+        transform: translateY(2px);
+    }
+
+    .social-btn i {
+        font-size: 18px;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+        border-radius: 15px;
+        border: none;
+        background-color: var(--neumorphic-bg);
+        box-shadow: 
+            8px 8px 15px var(--neumorphic-dark-shadow),
+            -8px -8px 15px var(--neumorphic-light-shadow);
+        padding: 10px;
+    }
+
+    .dropdown-item {
+        color: var(--neumorphic-text-secondary);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        padding: 8px 15px;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--neumorphic-bg);
+        color: var(--neumorphic-text-primary);
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    .dropdown-divider {
+        border-top: 1px solid rgba(163, 177, 198, 0.2);
+    }
+
+    /* Filter Buttons */
+    .filter-btn {
+        background-color: var(--neumorphic-bg);
+        color: var(--neumorphic-text-secondary);
+        border: none;
+        border-radius: 20px;
+        padding: 10px 15px;
+        margin: 5px;
+        font-weight: 500;
+        box-shadow: 
+            5px 5px 10px var(--neumorphic-dark-shadow),
+            -5px -5px 10px var(--neumorphic-light-shadow);
+        transition: all 0.3s ease;
+        width: 100%;
+        text-align: left;
+    }
+
+    .filter-btn:hover {
+        color: var(--neumorphic-text-primary);
+    }
+
+    .filter-btn.active {
+        color: var(--primary-blue);
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    /* Search Input */
+    .search-bar-container {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    #search-input {
+        background-color: var(--neumorphic-bg);
+        border: none;
+        border-radius: 20px;
+        padding: 12px 20px;
+        color: var(--neumorphic-text-secondary);
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+        width: 80%;
+        max-width: 500px;
+        margin-right: 10px;
+    }
+
+    #search-button {
+        background-color: var(--neumorphic-bg);
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: var(--neumorphic-text-primary);
+        box-shadow: 
+            5px 5px 10px var(--neumorphic-dark-shadow),
+            -5px -5px 10px var(--neumorphic-light-shadow);
+        transition: all 0.3s ease;
+    }
+
+    #search-button:hover {
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+        transform: translateY(2px);
+    }
+
+    /* Mobile Filter Toggle Button */
+    .mobile-filter-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background: var(--neumorphic-bg);
+        box-shadow: 5px 5px 10px var(--neumorphic-dark-shadow),
+                    -5px -5px 10px var(--neumorphic-light-shadow);
+    }
+
+    .mobile-filter-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .mobile-filter-toggle:active {
+        box-shadow: inset 3px 3px 5px var(--neumorphic-dark-shadow),
+                    inset -3px -3px 5px var(--neumorphic-light-shadow);
+        transform: scale(0.95);
+    }
+
+    /* Mobile Filter Menu */
+    .mobile-filter-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--neumorphic-bg);
+        z-index: 1000;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .mobile-filter-menu.show {
+        display: block;
+    }
+
+    .mobile-filter-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--neumorphic-text-primary);
+    }
+
+    /* Disclaimer Bar */
+    .disclaimer-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgb(248, 8, 8);
+        box-shadow: 0 -5px 15px rgba(236, 5, 5, 0.082);
+        z-index: 900;
+        max-height: 40px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .disclaimer-bar.expanded {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .disclaimer-toggle {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    .disclaimer-content {
+        padding: 10px 40px 10px 20px;
+        font-size: 0.9rem;
+        color: white;
+    }
+
+    .disclaimer-content h4 {
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 5px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        .partner-image {
+            max-height: 200px;
+        }
+
+        .partner-description {
+            font-size: 0.85rem;
+        }
+        
+        .social-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        
+        .filter-buttons.desktop {
+            display: none;
+        }
+        
+        .mobile-filter-toggle {
+            display: block;
+        }
+        
+        .partner-card {
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            width: 35px;
+            height: 35px;
+        }
+        
+        .social-btn i {
+            font-size: 14px;
+        }
+
+        .partner-contact {
+            font-size: 0.9rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+
+        .thumbnail-img {
+            max-width: 220px;
+        }
+        
+        .main-content {
+            width: 100%;
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+        
+        .filter-btn {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        
+
+        .partner-card .card-top-row {
+            flex-direction: column;
+        }
+        
+        .partner-image-container,
+        .partner-info,
+        .video-container {
+            width: 100%;
+            padding: 10px;
+        }
+        
+        .video-link {
+            max-width: 200px;
+        }
+
+        .partner-name {
+            font-size: 1.1rem;
+        }
+
+        .partner-description {
+            font-size: 0.8rem;
+        }
+
+        .partner-contact {
+            font-size: 0.8rem;
+        }
+
+        .thumbnail-img {
+            max-width: 180px;
+        }
+
+        .video-title {
+            font-size: 0.8rem;
+        }
+        
+        .disclaimer-bar {
+            font-size: 0.8rem;
+        }
+        
+        .disclaimer-content {
+            padding: 10px;
+        }
+        
+        #search-input {
+            width: 70%;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .container {
+            padding: 0 10px;
+        }
+
+        .partner-card {
+            margin: 10px 5px;
+        }
+
+        .partner-image {
+            max-height: 200px;
+        }
+
+        .partner-name {
+            font-size: 1rem;
+        }
+
+        .partner-description {
+            font-size: 0.75rem;
+        }
+
+        .partner-contact {
+            font-size: 0.75rem;
+        }
+
+        .tag {
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            margin: 2px;
+        }
+
+        .social-btn {
+            width: 30px;
+            height: 30px;
+        }
+
+        .social-btn i {
+            font-size: 12px;
+        }
+
+        .thumbnail-img {
+            max-width: 180px;
+        }
+
+        .play-button {
+            max-width: 40px;
+        }
+
+        .video-title {
+            font-size: 0.75rem;
+        }
+        
+        #search-input {
+            width: 65%;
+        }
+        
+        #search-button {
+            padding: 10px 15px;
+        }
+
+        .video-link {
+            max-width: 180px;
+        }
+
+        .mobile-filter-toggle {
+            width: 30px;  /* 10px smaller */
+            height: 30px; /* 10px smaller */
+            bottom: 15px; /* Adjust position */
+            right: 15px;  /* Adjust position */
+        }
+
+        .mobile-filter-toggle i {
+            font-size: 14px; /* Make icon slightly smaller too */
+        }
+    /* Fix for horizontal scrolling issues */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    @keyframes highlightCard {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+
+    .highlight-card {
+        animation: highlightCard 1s ease;
+        box-shadow: 
+            12px 12px 20px var(--neumorphic-dark-shadow),
+            -12px -12px 20px var(--neumorphic-light-shadow);
+    }
+
+    /* Neumorphic Scrollbar Styles */
+    /* For Webkit browsers (Chrome, Safari, newer versions of Opera) */
+    ::-webkit-scrollbar {
+        width: 14px;
+        background: var(--neumorphic-bg);
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--neumorphic-bg);
+        border-radius: 7px;
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #b0b8c4; /* Darker base color for better visibility */
+        border-radius: 7px;
+        border: 2px solid var(--neumorphic-bg);
+        box-shadow: 
+            3px 3px 5px var(--neumorphic-dark-shadow),
+            -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #9aa3b1; /* Even darker on hover */
+        box-shadow: 
+            4px 4px 6px var(--neumorphic-dark-shadow),
+            -4px -4px 6px var(--neumorphic-light-shadow);
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        background: #8791a0; /* Darkest when active */
+        box-shadow: 
+            inset 3px 3px 5px var(--neumorphic-dark-shadow),
+            inset -3px -3px 5px var(--neumorphic-light-shadow);
+    }
+
+    /* For Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #b0b8c4 var(--neumorphic-bg);
+    }
+
+    /* For Edge and IE */
+    body {
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    .search-bar-container {
+        padding-left: 38px;
+    }
+
+    /* Custom scrollbar for the mobile filter menu */
+    .mobile-filter-menu {
+        scrollbar-width: thin;
+    }
+
+    .mobile-filter-menu::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .mobile-filter-menu::-webkit-scrollbar-track {
+        margin: 5px;
+    }
+
+    .mobile-filter-menu::-webkit-scrollbar-thumb {
+        border-width: 1px;
+        background: #b0b8c4;
+        }
+    }
+
+    .container.my-2.d-flex {
+        gap: 24px; /* Add gap between filter buttons and main content */
+    }
+
+    /* Ensure the gap doesn't cause overflow on mobile */
+    @media (max-width: 991.98px) {
+        .container.my-2.d-flex {
+            gap: 0;
+        }
+    }
+    </style>
+</head>
+<body>
+    
+    <!-- Filter Buttons -->
+    
+    
+    
+<div class="search-bar-container text-center">
+    <div class="search-bar col-md-12 col-lg-12 col-sm-12 pt-2">
+        <input type="text" id="search-input" placeholder="Search partners..." style="width: 50%; border-radius: 20px; border: 1px solid #002B7F; padding: 10px;">
+        <button id="search-button" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="container my-2 d-flex">
+        <!-- Create a template div that we'll clone for both desktop and mobile -->
+        <script id="categories-template" type="text/template">
+                <button class="filter-btn active" data-category="all">All Partners</button>
+                <button class="filter-btn" data-category="construction & home services">Construction & Home Services</button>
+                <button class="filter-btn" data-category="automotive & transportation">Automotive & Transportation</button>
+                <button class="filter-btn" data-category="finance & insurance">Finance & Insurance</button>
+                <button class="filter-btn" data-category="real estate & professional services">Real Estate & Professional Services</button>
+                <button class="filter-btn" data-category="food & hospitality">Food & Hospitality</button>
+                <button class="filter-btn" data-category="health & wellness">Health & Wellness</button>
+                <button class="filter-btn" data-category="utilities & manufacturing">Utilities & Manufacturing</button>
+                <button class="filter-btn" data-category="media & marketing">Media & Marketing</button>
+                <button class="filter-btn" data-category="church partners">Church Partners</button>
+                <button class="filter-btn" data-category="other trades & services">Other Trades & Services</button>
+                <button class="filter-btn" data-category="retail">Retail</button>
+        </script>
+
+       
+
+        <!-- Mobile Filter Toggle Button -->
+        <button class="mobile-filter-toggle btn" style="position: fixed; top: 30px; left: 5px; z-index: 1000; border-radius: 50%; width: 40px; height: 40px; background: var(--neumorphic-bg); box-shadow: 5px 5px 10px var(--neumorphic-dark-shadow), -5px -5px 10px var(--neumorphic-light-shadow);">
+            <i class="fas fa-filter"></i>
+            <span class="d-none d-md-block" style="position: absolute; top: 50%; left: 50%; transform: translate(150%, -50%); font-size: 12px; color: var(--neumorphic-text-primary);">Filter</span>
+        </button>
+
+        <!-- Mobile Filter Menu -->
+        <div class="mobile-filter-menu text-center">
+            <button class="mobile-filter-close" aria-label="Close filters menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <h4 style="text-decoration: underline; margin-bottom: 20px;">Categories</h4>
+            <div id="mobile-categories"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content col-md-12 col-lg-12 col-sm-8">
+            <div class="row py-3" id="partners-grid">
+                <!-- Dynamic content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Disclaimer Bar -->
+    <div class="disclaimer-bar">
+        <button class="disclaimer-toggle">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <div class="container">
+            <div class="disclaimer-content">
+                <h4 class="mb-3">DISCLAIMER</h4>
+                <p>Servolution Network values its partners but cannot guarantee any warranties on the goods or services of Love YOUR City Partners companies. By using these partners, you acknowledge that Servolution Network is not responsible for their offerings. It is your responsibility to verify the pricing, quality, and performance of each company. For issues, contact the partner directly. If unresolved, provide feedback to us.</p>
+                <p class="mb-0">This list is a way for Servolution Network to thank businesses that have partnered with us while simultaneously serving the community with recommendations to people we have worked alongside. We aim to maintain and grow our alliance to better serve the community. Thank you for visiting our page.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        // Add this helper function at the start of your script
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        $(document).ready(function() {
+            let partnersData = []; // Store partners data
+
+            // Load partners data
+            $.getJSON('data/partners.json')
+                .done(function(data) {
+                    partnersData = data.partners || [];
+                    populatePartners(partnersData);
+                })
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Failed to load partners:', errorThrown);
+                    showToast('Error', 'Failed to load partners data');
+                });
+
+            function populatePartners(partners) {
+                const partnersGrid = $('#partners-grid');
+                partnersGrid.empty();
+
+                if (!Array.isArray(partners)) {
+                    console.error('Invalid partners data');
+                    return;
+                }
+
+                partners.forEach(partner => {
+                    try {
+                        const partnerCard = renderPartnerCard(partner);
+                        partnersGrid.append(partnerCard);
+                    } catch (error) {
+                        console.error('Failed to render partner:', partner, error);
+                    }
+                });
+            }
+
+            function renderPartnerCard(partner) {
+                // Sanitize all user-provided data
+                const sanitizedPartner = {
+                    name: escapeHtml(partner.name || ''),
+                    description: escapeHtml(partner.description || ''),
+                    address: escapeHtml(partner.address || ''),
+                    phone: escapeHtml(partner.phone || ''),
+                    category: escapeHtml(partner.category || ''),
+                    website: escapeHtml(partner.website || ''),
+                    facebook: escapeHtml(partner.facebook || ''),
+                    instagram: escapeHtml(partner.instagram || ''),
+                    whyVideo: partner.whyVideo ? encodeURI(partner.whyVideo) : '',
+                    image: encodeURI(partner.image || ''),
+                    thumbnail: partner.thumbnail ? encodeURI(partner.thumbnail) : '',
+                    tags: partner.tags ? partner.tags.map(tag => escapeHtml(tag)) : []
+                };
+
+    return `
+                    <div class="col-lg-12 col-md-12 mb-4 partner-card" data-category="${sanitizedPartner.category.toLowerCase()}">
+                        <div class="card" data-partner-id="${partner.id || ''}">
+                            <div class="card-content">
+                <!-- First row: 3-6-3 layout -->
+                                <div class="card-top-row">
+                    <!-- Left column: Partner Image (col-lg-3) -->
+                                    <div class="col-12 col-lg-3 col-md-3 partner-image-container">
+                                        <img src="${sanitizedPartner.image}" alt="${sanitizedPartner.name}" class="partner-image">
+                    </div>
+                    
+                    <!-- Middle column: Partner Info (col-lg-6) -->
+                                    <div class="col-12 col-lg-6 col-md-6 partner-info">
+                                        <h5 class="partner-name">${sanitizedPartner.name}</h5>
+                        
+                        <!-- Tags -->
+                        <div class="d-flex flex-wrap mb-3">
+                                            ${sanitizedPartner.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                            ${sanitizedPartner.tags.length > 3 ? `<span class="tag">...</span>` : ''}
+                        </div>
+                        
+                        <!-- Description -->
+                        <p class="partner-description">
+                                            ${sanitizedPartner.description}
+                        </p>
+                        
+                        <!-- Address -->
+                        <div class="partner-contact">
+                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>${sanitizedPartner.address}</span>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="partner-contact">
+                            <i class="fas fa-phone"></i>
+                                            <span>${sanitizedPartner.phone}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Right column: Why Video (col-lg-3) -->
+                                    <div class="col-12 col-lg-3 col-md-3">
+                                        ${sanitizedPartner.whyVideo ? `
+                            <div class="video-container">
+                                                <a href="${sanitizedPartner.whyVideo}" target="_blank" class="video-link">
+                                                    <img class="thumbnail-img" src="${sanitizedPartner.thumbnail}" alt="Why Partner with Us?" style=>
+                                    <img class="play-button" src="data/img/ytplay.webp" alt="Play Video">
+                                    <div class="video-title">
+                                        <i class="fas fa-video me-2"></i>
+                                        <span>Why we give</span>
+                                    </div>
+                                </a>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <!-- Second row: Social links (col-12) -->
+                                <div class="card-bottom-row">
+                        <div class="social-links">
+                                        <a href="${sanitizeUrl(partner.website)}" class="social-btn" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                                        <a href="${sanitizedPartner.facebook ? 'https://' + sanitizedPartner.facebook : '#'}" class="social-btn" target="_blank">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                                        <a href="${sanitizedPartner.instagram ? 'http://' + sanitizedPartner.instagram : '#'}" class="social-btn" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <div class="dropdown">
+                                <button class="social-btn" type="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item share-btn" href="#" data-platform="facebook" 
+                                                    data-partner='${JSON.stringify({name: sanitizedPartner.name, website: sanitizedPartner.website || ''})}'>
+                                    <i class="fab fa-facebook-f me-2"></i> Facebook
+                                    </a></li>
+                                    <li><a class="dropdown-item share-btn" href="#" data-platform="twitter" 
+                                                    data-partner='${JSON.stringify({name: sanitizedPartner.name, website: sanitizedPartner.website || ''})}'>
+                                    <i class="fab fa-twitter me-2"></i> Twitter
+                                    </a></li>
+                                    <li><a class="dropdown-item share-btn" href="#" data-platform="whatsapp" 
+                                                    data-partner='${JSON.stringify({name: sanitizedPartner.name, website: sanitizedPartner.website || ''})}'>
+                                    <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item share-btn" href="#" data-platform="copyLink" 
+                                                    data-partner='${JSON.stringify({name: sanitizedPartner.name, website: sanitizedPartner.website || ''})}'>
+                                    <i class="fas fa-link me-2"></i> Copy Link
+                                    </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                `;
+            }
+
+            // Add debounce function
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Add validation for search input
+            function validateSearchInput(input) {
+                return input.replace(/[<>{}]/g, '').slice(0, 100);
+            }
+
+            // Update search functionality
+            $('#search-input').on('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                console.log('Searching for:', searchTerm);
+
+                $('.partner-card').each(function() {
+                    const $card = $(this);
+                    const name = $card.find('.partner-name').text().toLowerCase();
+                    const description = $card.find('.partner-description').text().toLowerCase();
+                    const tags = $card.find('.tag').text().toLowerCase();
+
+                    if (name.includes(searchTerm) || 
+                        description.includes(searchTerm) || 
+                        tags.includes(searchTerm)) {
+                        $card.show();
+                    } else {
+                        $card.hide();
+                    }
+                });
+            });
+
+            // Handle filter clicks (both mobile and desktop)
+            $(document).on('click', '.filter-btn', function() {
+                const selectedCategory = $(this).data('category').toLowerCase();
+                console.log('Selected category:', selectedCategory);
+                
+                // Update active state of all filter buttons
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // Filter the partners
+                if (selectedCategory === 'all') {
+                    $('.partner-card').fadeIn();
+                } else {
+                    $('.partner-card').each(function() {
+                        const cardCategory = $(this).attr('data-category').toLowerCase();
+                        console.log('Card category:', cardCategory);
+                        
+                        if (cardCategory === selectedCategory) {
+                            $(this).fadeIn();
+                        } else {
+                            $(this).fadeOut();
+                        }
+                    });
+                }
+                
+                // Close mobile menu if open
+                $('.mobile-filter-menu').removeClass('show');
+                $('body').css('overflow', '');
+            });
+
+            // Mobile filter toggle handlers
+            $('.mobile-filter-toggle').click(function() {
+                $('.mobile-filter-menu').addClass('show');
+                $('body').css('overflow', 'hidden'); // Prevent scrolling when menu is open
+            });
+
+            $('.mobile-filter-close').click(function() {
+                $('.mobile-filter-menu').removeClass('show');
+                $('body').css('overflow', ''); // Restore scrolling
+            });
+
+            // Handle filter clicks (both mobile and desktop)
+            $('.filter-btn').click(function() {
+                const category = $(this).data('category');
+                $('.filter-btn').removeClass('active');
+                $('.filter-btn[data-category="' + category + '"]').addClass('active');
+                
+                // Close mobile menu after selection
+                $('.mobile-filter-menu').removeClass('show');
+                $('body').css('overflow', '');
+                
+                // Your existing filter logic here
+                loadPartners(category);
+            });
+
+            // Disclaimer toggle
+            $('.disclaimer-toggle').click(function() {
+                const disclaimerBar = $('.disclaimer-bar');
+                const isExpanded = disclaimerBar.hasClass('expanded');
+                
+                disclaimerBar.toggleClass('expanded');
+                $(this).html(isExpanded ? 
+                    '<i class="fas fa-chevron-up"></i>' : 
+                    '<i class="fas fa-chevron-down"></i>'
+                );
+            });
+
+            
+
+            // Sticky navbar (without smooth scroll)
+            
+
+            // Mobile menu collapse
+            $('.navbar-nav>li>a').on('click', function(){
+                $('.navbar-collapse').collapse('hide');
+            });
+
+            // Modified share button click handler
+            $(document).on('click', '.share-btn', async function(e) {
+                e.preventDefault();
+                
+                const platform = $(this).data('platform');
+                const clientBaseUrl = "https://www.servolutionnetwork.com/lyc-partners"; // Replace with actual client website URL
+                const partner = $(this).data('partner');
+                
+                console.log('Share clicked:', { platform, partner }); // Debug log
+                
+                if (!partner || !partner.name) {
+                    console.error('Invalid partner data:', partner);
+                    showToast('Error', 'Unable to share. Invalid partner data.');
+                    return;
+                }
+                
+                try {
+                    const shareData = {
+                        title: `Check out ${partner.name}!`,
+                        text: `Learn more about ${partner.name}`,
+                        url: sanitizeUrl(partner.website)
+                    };
+                    
+                    switch (platform) {
+                        case 'copyLink':
+                            try {
+                                // Create a specific URL endpoint for the partner
+                                const baseUrl = window.location.origin + window.location.pathname;
+                                const partnerEndpoint = `${baseUrl}?partner=${encodeURIComponent(partner.name)}`;
+                                
+                                if (navigator.clipboard && window.isSecureContext) {
+                                    // For HTTPS environments
+                                    await navigator.clipboard.writeText(partnerEndpoint);
+                                    Swal.fire({
+                                        title: 'Success!',
+                                        text: 'Partner link copied to clipboard!',
+                                        icon: 'success',
+                                        toast: true,
+                                        position: 'bottom-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        timerProgressBar: true
+                                    });
+                                } else {
+                                    // Fallback for HTTP or unsupported browsers
+                                    const textArea = document.createElement('textarea');
+                                    textArea.value = partnerEndpoint;
+                                    textArea.style.position = 'fixed';
+                                    textArea.style.left = '-999999px';
+                                    textArea.style.top = '-999999px';
+                                    document.body.appendChild(textArea);
+                                    textArea.focus();
+                                    textArea.select();
+                                    
+                                    try {
+                                        document.execCommand('copy');
+                                        textArea.remove();
+                                        Swal.fire({
+                                            title: 'Success!',
+                                            text: 'Partner link copied to clipboard!',
+                                            icon: 'success',
+                                            toast: true,
+                                            position: 'bottom-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true
+                                        });
+                                    } catch (err) {
+                                        console.error('Failed to copy text:', err);
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: 'Failed to copy link. Please try again.',
+                                            icon: 'error',
+                                            toast: true,
+                                            position: 'bottom-end',
+                                            showConfirmButton: false,
+                                            timer: 3000,
+                                            timerProgressBar: true
+                                        });
+                                    }
+                                }
+                            } catch (err) {
+                                console.error('Copy failed:', err);
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Failed to copy link. Please try again.',
+                                    icon: 'error',
+                                    toast: true,
+                                    position: 'bottom-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true
+                                });
+                            }
+                            break;
+                            
+                        case 'facebook':
+                            window.open(
+                                `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`,
+                                'share',
+                                'width=600,height=400,location=0,menubar=0'
+                            );
+                            break;
+                            
+                        case 'twitter':
+                            window.open(
+                                `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.title)}&url=${encodeURIComponent(shareData.url)}`,
+                                'share',
+                                'width=600,height=400,location=0,menubar=0'
+                            );
+                            break;
+                            
+                        case 'whatsapp':
+                            window.open(
+                                `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.title + '\n' + shareData.url)}`,
+                                'share',
+                                'width=600,height=400,location=0,menubar=0'
+                            );
+                            break;
+                            case 'sms':
+        // Modify the URL to use client website instead of github.io
+                            const smsText = `Check out ${partnerTitle} ${clientBaseUrl}?partner=${encodeURIComponent(partnerTitle)}`;
+                                window.location.href = `sms:?&body=${encodeURIComponent(smsText)}`;
+                            break;
+                    }
+                } catch (error) {
+                    console.error('Share error:', error);
+                    showToast('Error', 'Failed to share. Please try again.');
+                }
+            });
+
+            // Toast notification function
+            function showToast(title, message) {
+                Swal.fire({
+                    title: title,
+                    text: message,
+                    icon: title.toLowerCase() === 'success' ? 'success' : 'error',
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            }
+
+            $('.dropdown-toggle').on('shown.bs.dropdown', function () {
+                const $dropdownMenu = $(this).next('.dropdown-menu');
+                const dropdownBottom = $dropdownMenu.offset().top + $dropdownMenu.outerHeight();
+                const viewportBottom = $(window).scrollTop() + $(window).height();
+                
+                if (dropdownBottom > viewportBottom) {
+                    $dropdownMenu.css({
+                        top: 'auto',
+                        bottom: '100%'
+                    });
+                }
+            });
+            $(document).on('mousedown', '.social-btn', function() {
+        $(this).css({
+            'box-shadow': 'inset 3px 3px 5px rgba(163, 177, 198, 0.6), inset -3px -3px 5px rgba(255, 255, 255, 0.5)',
+            'transform': 'translateY(2px)'
+        });
+    }).on('mouseup mouseleave', '.social-btn', function() {
+        $(this).css({
+            'box-shadow': '5px 5px 10px rgba(163, 177, 198, 0.6), -5px -5px 10px rgba(255, 255, 255, 0.5)',
+            'transform': 'translateY(0)'
+        });
+    });
+    
+    // Press effect on tags
+    $(document).on('mousedown', '.tag', function() {
+        $(this).css({
+            'box-shadow': 'inset 2px 2px 3px rgba(163, 177, 198, 0.6), inset -2px -2px 3px rgba(255, 255, 255, 0.5)',
+            'transform': 'translateY(1px)'
+        });
+    }).on('mouseup mouseleave', '.tag', function() {
+        $(this).css({
+            'box-shadow': '3px 3px 5px rgba(163, 177, 198, 0.6), -3px -3px 5px rgba(255, 255, 255, 0.5)',
+            'transform': 'translateY(0)'
+        });
+    });
+    
+    // Press effect on filter buttons
+    $('.filter-btn').on('mousedown', function() {
+        if (!$(this).hasClass('active')) {
+            $(this).css({
+                'box-shadow': 'inset 3px 3px 5px rgba(163, 177, 198, 0.6), inset -3px -3px 5px rgba(255, 255, 255, 0.5)'
+            });
+        }
+    }).on('mouseup mouseleave', function() {
+        if (!$(this).hasClass('active')) {
+            $(this).css({
+                'box-shadow': '5px 5px 10px rgba(163, 177, 198, 0.6), -5px -5px 10px rgba(255, 255, 255, 0.5)'
+            });
+        }
+    });
+
+            // Get the categories template content
+            const categoriesTemplate = $('#categories-template').html();
+            
+            // Populate both desktop and mobile menus
+            $('#desktop-categories').html(categoriesTemplate);
+            $('#mobile-categories').html(categoriesTemplate);
+
+            // Handle URL parameters for direct partner links
+            function handleUrlParams() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const partnerName = urlParams.get('partner');
+                
+                if (partnerName) {
+                    // Wait for partners data to load
+                    $.getJSON('data/partners.json', function(data) {
+                        const partner = data.partners.find(p => 
+                            p.name.toLowerCase() === decodeURIComponent(partnerName).toLowerCase()
+                        );
+                        
+                        if (partner) {
+                            // Scroll to the partner's card
+                            const partnerCard = $(`.partner-card:contains("${partner.name}")`);
+                            if (partnerCard.length) {
+                                setTimeout(() => {
+                                    $('html, body').animate({
+                                        scrollTop: partnerCard.offset().top - 100
+                                    }, 1000);
+                                    
+                                    // Highlight the card briefly
+                                    partnerCard.addClass('highlight-card');
+                                    setTimeout(() => {
+                                        partnerCard.removeClass('highlight-card');
+                                    }, 2000);
+                                }, 500);
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Call the function when page loads
+            handleUrlParams();
+        });
+
+        // Add some CSS for the filtering
+        const style = document.createElement('style');
+        style.textContent = `
+            .partner-card {
+                transition: opacity 0.3s ease;
+            }
+            
+            .filter-btn {
+                transition: all 0.2s ease;
+            }
+            
+            .filter-btn.active {
+                background-color: #007bff;
+                color: white;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Update URL handling in the share functionality
+        function sanitizeUrl(url) {
+            if (!url) return '#';
+            url = url.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            return encodeURI(url);
+        }
+
+        // Update clipboard functionality
+        async function copyToClipboard(text) {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                }
+                
+                // Fallback for non-secure contexts
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    textArea.remove();
+                    return true;
+                } catch (err) {
+                    console.error('Fallback: Copying text failed', err);
+                    textArea.remove();
+                    return false;
+                }
+            } catch (err) {
+                console.error('Copying text failed', err);
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
